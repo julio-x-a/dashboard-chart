@@ -1,4 +1,105 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  width: 40%;
+  max-width: 250px;
+  min-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.5fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "header header"
+    "chart1 chart2"
+    "footer footer";
+}
+
+@media only screen 
+and (max-width : 970px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "header header"
+      "chart1 chart1"
+      "chart2 chart2"
+      "footer footer";
+  }
+.chart,
+.chart2 {
+  width: 100%;
+  height: 60vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  text-align: center;
+}
+  
+}
+
+.chart,
+.chart2 {
+  width: 90%;
+  height: 60vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .chart {
-  width: 50%;
-  margin: auto;
+  grid-area: chart1;
+}
+.chart2 {
+  grid-area: chart2;
+}
+
+.header {
+  grid-area: header;
+}
+
+
+
+.btn-click {
+  background-color: #4E5BE0;
+  color: #fff;
+  border: none;
+  border-radius: 2px solid;
+  border: 2px outset #4E5BE0;
+  padding: 10px;
+
+}
+
+.btn-click:hover {
+  background-color: #4451DF;
+  border: outset 3px #4451DF;
+}
+.btn-click:active {
+  border: inset 3px #4E5BE0;
 }

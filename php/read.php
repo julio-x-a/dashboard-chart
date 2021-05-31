@@ -7,12 +7,10 @@ $result = mysqli_query($conexion, $query);
 $names = [];
 $stock = [];
 
-
 while ($rows = mysqli_fetch_array($result)) {
     $names[] = $rows[0];
     $stock[] = $rows[1];
 }
-
 $response = [
     "names" => $names,
     "stock" => $stock
