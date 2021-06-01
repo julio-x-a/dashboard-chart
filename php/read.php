@@ -1,8 +1,8 @@
 <?php
 
 require('conexion.php');
-$query = "SELECT nombre, cantidad_en_stock AS cant FROM producto 
-          GROUP BY nombre  LIMIT 10";
+$query = "SELECT nombre, precio_venta AS precio FROM producto 
+          GROUP BY nombre ORDER BY precio DESC LIMIT 10";
 $result = mysqli_query($conexion, $query);
 $names = [];
 $stock = [];
@@ -17,3 +17,4 @@ $response = [
 ];
 
 echo json_encode($response);
+

@@ -3,12 +3,20 @@ const options = {
     labels: 'labels',
     datasets: [
       {
-        type: 'bar',
+        type: 'line',
         label: ' Número de Stock',
         backgroundColor: [
           // '#11a958',
           // '#196eb5',
           // '#21201e',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
@@ -16,16 +24,8 @@ const options = {
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)'
         ],
-        borderColor: [
-          '#000'
-          // 'rgba(255, 99, 132, 0.2)',
-          // 'rgba(54, 162, 235, 0.2)',
-          // 'rgba(255, 206, 86, 0.2)',
-          // 'rgba(75, 192, 192, 0.2)',
-          // 'rgba(153, 102, 255, 0.2)',
-          // 'rgba(255, 159, 64, 0.2)'
-        ],
-        borderWidth: 3,
+        borderWidth: 1,
+        fill: true,
       },
     ]
   },
@@ -33,6 +33,14 @@ const options = {
     responsive: true,
     maintainAspectRatio: false,
     lineTension: 0.5,
+    scales: {
+      yAxes: [{
+        ticks: {
+          reverse: true,
+          
+        }
+      }]
+    }
   }
 };
 let myChart;
@@ -68,8 +76,8 @@ async function getAll2(options) {
 document.addEventListener('DOMContentLoaded', (e) => {
   getAll(options);
   getAll2(options);
-
 });
+
 document.addEventListener('click', (e) => {
   if (e.target.matches('#chart-bar')) {
     myChart.destroy();

@@ -31,14 +31,21 @@ html {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.5fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr;
   gap: 0px 0px;
   grid-template-areas:
-    "header header"
-    "chart1 chart2"
-    "footer footer";
+    "header header header header"
+    "saldos1 saldos1 saldos2 saldos2"
+    "chart1 chart1 chart2 chart2";
 }
+
+.header { grid-area: header; }
+.saldos1 { grid-area: saldos1; }
+.saldos2 { grid-area: saldos2; }
+.chart1 { grid-area: chart1; }
+.chart2 { grid-area: chart2; }
+
 
 @media only screen 
 and (max-width : 970px) {
@@ -48,10 +55,12 @@ and (max-width : 970px) {
     grid-template-rows: 0.5fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-      "header header"
-      "chart1 chart1"
-      "chart2 chart2"
-      "footer footer";
+      "header  header  header  header"
+      "saldos1 saldos1 saldos1 saldos1"
+      "saldos2 saldos2 saldos2 saldos2"
+      "chart1  chart1  chart1  chart1"
+      "chart2  chart2  chart2  chart2"
+      "footer  footer  footer  foooter";
   }
 .chart,
 .chart2 {
@@ -65,26 +74,14 @@ and (max-width : 970px) {
   
 }
 
-.chart,
+.chart1,
 .chart2 {
   width: 90%;
   height: 60vh;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 50px;
 }
-
-.chart {
-  grid-area: chart1;
-}
-.chart2 {
-  grid-area: chart2;
-}
-
-.header {
-  grid-area: header;
-}
-
-
 
 .btn-click {
   background-color: #4E5BE0;
