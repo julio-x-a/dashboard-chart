@@ -1,5 +1,6 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 
 * {
@@ -9,6 +10,7 @@
 
 html {
   font-family: 'Poppins', sans-serif;
+  font-size: 16px;
 }
 
 .logo {
@@ -22,6 +24,7 @@ html {
 
 .title {
   font-size: 2rem;
+  font-family: 'Roboto Condensed';
   text-align: center;
 }
 
@@ -41,8 +44,14 @@ html {
 }
 
 .header { grid-area: header; }
-.saldos1 { grid-area: saldos1; }
-.saldos2 { grid-area: saldos2; }
+.saldos1 { 
+  grid-area: saldos1; 
+  text-align: center;
+}
+.saldos2 {
+  grid-area: saldos2;
+  text-align: center;
+ }
 .chart1 { grid-area: chart1; }
 .chart2 { grid-area: chart2; }
 
@@ -99,4 +108,12 @@ and (max-width : 970px) {
 }
 .btn-click:active {
   border: inset 3px #4E5BE0;
+}
+
+.saldos1 ul li {
+  font-size: 1.5rem;
+}
+.saldos1 ul,
+.saldos2 ul {
+  text-align: left;
 }

@@ -3,7 +3,7 @@ const options = {
     labels: 'labels',
     datasets: [
       {
-        type: 'line',
+        type: 'bar',
         label: ' Número de Stock',
         backgroundColor: [
           // '#11a958',
@@ -32,61 +32,22 @@ const options = {
   options: {
     responsive: true,
     maintainAspectRatio: false,
-    lineTension: 0.5,
-    scales: {
-      yAxes: [{
-        ticks: {
-          reverse: true,
-          
-        }
-      }]
-    }
+    lineTension: 0,
   }
 };
-let myChart;
 
-async function getAll(options) {
+export async function drawChart(type, canvas) {
   try {
     let res = await fetch('./php/read.php');
     let json = await res.json();
     if (!res.ok) throw { status: res.status, statusText: res.statusText };
-    options.data.labels = json.names;
-    options.data.datasets[0].data = json.stock;
-    const ctx = document.getElementById('myChart').getContext('2d');
-    myChart = new Chart(ctx, options);
-  } catch (err) {
-    console.log(`Error: ${err}`);
-  }
-}
-
-async function getAll2(options) {
-  try {
-    let res = await fetch('./php/read.php');
-    let json = await res.json();
-    if (!res.ok) throw { status: res.status, statusText: res.statusText };
-    const ctx = document.getElementById('myChart2').getContext('2d');
-    options.data.labels = json.names;
-    options.data.datasets[0].data = json.stock;
-    const myChart2 = new Chart(ctx, options);
+    const ctx = document.getElementById(canvas).getContext('2d');
+    const clone = Object.assign({}, options);
+    clone.data.labels = json.names;
+    clone.data.datasets[0].data = json.stock;
+    clone.data.datasets[0].type = type;
+    const myChart2 = new Chart(ctx, clone);
   } catch (err) {
     console.log(`Error: ${err}`);
   } 
 }
-
-document.addEventListener('DOMContentLoaded', (e) => {
-  getAll(options);
-  getAll2(options);
-});
-
-document.addEventListener('click', (e) => {
-  if (e.target.matches('#chart-bar')) {
-    myChart.destroy();
-    options.type = 'bar';
-    getAll(options);
-  }
-  if (e.target.matches('#chart-pie')) {
-    myChart.destroy();
-    options.type = 'pie';
-    getAll(options);
-  }
-});
