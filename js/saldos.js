@@ -21,4 +21,7 @@ export default async function getSaldos() {
   } catch (err) {
     console.log(`Error: ${err}`);
   }
+  // const $link = document.querySelectorAll('ol li a');
+  // $link.forEach(element => element.setAttribute('href', '##'));
+
 }

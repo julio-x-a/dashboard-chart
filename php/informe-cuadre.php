@@ -7,7 +7,7 @@ $db_pwd = '1234567891.123';
 // $date = date('ymd');
 
 $conexion = mysqli_connect($db_host, $db_user, $db_pwd, $db_name) or die("Fallo");
-$query = "CALL SP_CUADRE_BANCOS_FINAL('110505', 0, '210612', '210612')";
+$query = "CALL SP_CUADRE_BANCOS_FINAL('110505', 0, '210615', '210615')";
 $result = mysqli_query($conexion, $query);
 $docref = [];
 $date = [];
@@ -38,4 +38,5 @@ $response = [
     "comment" => $comment,
     "facfis" => $facfis
 ];
-echo json_encode($response['fuente']);
+echo json_encode($response['facfis']);
+
