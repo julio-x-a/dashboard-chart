@@ -26,10 +26,21 @@ html {
   font-size: 2rem;
   font-family: 'Roboto Condensed';
   text-align: center;
+  font-weight: lighter;
 }
 
 .subtitle {
   text-align: center;
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
+
+.saldos1 h3,
+.saldos2 h3 {
+  margin-top: 0;
+  height: 25%;
+  background-color: rgba(75, 192, 192, 0.2);
+  border-bottom: 1px solid rgba(75, 192, 192, 1);
 }
 
 .grid-container {
@@ -43,7 +54,11 @@ html {
     "chart1 chart1 chart2 chart2";
 }
 
-.header { grid-area: header; }
+.header { 
+  grid-area: header;
+  /* display: flex;
+  align-content: flex-end; */
+ }
 .saldos1 { 
   grid-area: saldos1; 
   text-align: center;
@@ -110,10 +125,64 @@ and (max-width : 970px) {
   border: inset 3px #4E5BE0;
 }
 
-.saldos1 ul li {
-  font-size: 1.5rem;
+.saldos1 ul li,
+.saldos2 ul li {
+  font-size: 1.2rem;
 }
 .saldos1 ul,
 .saldos2 ul {
   text-align: left;
+}
+
+#lista2 {
+  counter-reset: li; 
+  list-style: none; 
+  *list-style: decimal; 
+  font: 15px 'Poppins', 'lucida sans';
+  padding: 0;
+  margin-bottom: 4em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+#lista2 ol {
+  margin: 0 0 0 2em; 
+}
+
+#lista2 li{
+  position: relative;
+  display: block;
+  padding: .4em .4em .4em 2em;
+  *padding: .4em;
+  margin: .5em 0;
+  background: #ddd;
+  color: #444;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: all .3s ease-out;   
+}
+
+#lista2 li:hover{
+  background: #eee;
+}
+
+#lista2 li:hover:before{
+  transform: rotate(360deg);  
+}
+
+#lista2 li:before{
+  content: counter(li);
+  counter-increment: li;
+  position: absolute; 
+  left: -1.3em;
+  top: 50%;
+  margin-top: -1.3em;
+  background: #fff;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  border: .3em solid #fff;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2em;
+  transition: all .3s ease-out;
 }
