@@ -1,5 +1,4 @@
-import {drawChart} from './script.js';
-import getSaldos from './saldos.js';
+import {getSaldos, drawChart} from './requests.js';
 
 document.addEventListener('DOMContentLoaded', (e) => {
     drawChart('line', 'myChart');
@@ -7,3 +6,5 @@ document.addEventListener('DOMContentLoaded', (e) => {
     getSaldos();
     
 });
+
+

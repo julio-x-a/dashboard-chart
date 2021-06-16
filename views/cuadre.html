@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="header">
+    </header>
+    <section class="crud">
+        <h1 class="crud-title">CUADRE CAJA Y/O BANCOS</h1>
+      <article>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>N. DOCUMENTO</th>
+              <th>FECHA</th>
+              <th>DEBITO</th>
+              <th>CREDITO</th>
+              <th>CLIENTE</th>
+              <th>COMENTARIO</th>
+              <th>FACFIS</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </article>
+    </section>
+    <template id="cuadre-template">
+      <tr>
+        <td class="doc"></td>
+        <td class="date"></td>
+        <td class="deb"></td>
+        <td class="cred"></td>
+        <td class="client"></td>
+        <td class="comment"></td>
+        <td class="facfis"></td>
+      </tr>
+    </template>
+    <script>
+      const d = document,
+        $table = d.querySelector('.table'),
+        $fragment = d.createDocumentFragment(),
+        $template = d.getElementById('cuadre-template').content;
+
+      /*<-- Obtener todos los registros -->*/
+      async function getAll() {
+        try {
+          let req = await fetch('../php/get/cuadre-caja.php');
+          let res = await req.json();
+          if (!req.ok) throw { status: res.status, statusText: res.statusText };
+          res.forEach((value) => {
+            let {docref, fecdoc, deb, cred, client, nomfue, coment, facfis} = value;
+            $template.querySelector('.doc').textContent = docref;
+            $template.querySelector('.date').textContent = fecdoc;
+            $template.querySelector('.deb').textContent = deb;
+            $template.querySelector('.cred').textContent = cred;
+            $template.querySelector('.client').textContent = client;
+            $template.querySelector('.comment').textContent = coment;
+            $template.querySelector('.facfis').textContent = facfis;
+            let $clone = d.importNode($template, true);
+            $fragment.appendChild($clone);
+          });
+          $table.querySelector('tbody').appendChild($fragment);
+        } catch (err) {
+          printError(err, $table);
+        }
+      }
+
+      /*Muestra el error de cualquier petición*/
+      const printError = (err, element) => {
+        let message = err.statusText || 'Ocurrió un error!';
+        if (element) {
+          element.insertAdjacentHTML(
+            'afterend',
+            `<span>Error: ${err.status}: ${message}</span>`
+          );
+        } else {
+          alert(`Error ${err.status}: ${message}`);
+        }
+      };
+      d.addEventListener('DOMContentLoaded', getAll());
+    </script>
+  </body>
+</html>
