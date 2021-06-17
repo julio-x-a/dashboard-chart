@@ -1,21 +1,20 @@
 <?php
-
-$db_host = 'win2008';
-$db_name = 'bdconta25';
-$db_user = 'root';
-$db_pwd = '1234567891.123';
+require('conexEsys.php');
 
 // *---- Conexión por procedimientos -----*/
-
-$conexion = mysqli_connect($db_host, $db_user, $db_pwd, $db_name) or die("Fallo");
 $query = "SELECT * FROM vi_saldos";
 $result = mysqli_query($conexion, $query);
 $saldos = [];
 while ($rows = mysqli_fetch_array($result)) {
-    $saldos = $rows;
+    $saldos['saldoCaja'] = $rows[0];
+    $saldos['saldoCartProv'] = $rows[1];
+    $saldos['saldoCart'] = $rows[2];
+    $saldos['saldoInv'] = $rows[3];
+    $saldos['cantidadInv'] = $rows[4];
+    $saldos['egresos'] = $rows[5];
 }
 // $response = [
-//     "saldos" => $saldos,
+//     "saldos" => $saldos
 // ];
 echo json_encode($saldos);
 

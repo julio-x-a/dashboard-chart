@@ -8,12 +8,28 @@
     <title>Document</title>
   </head>
   <body>
-    <header class="header">
-    </header>
-    <section class="crud">
-        <h1 class="crud-title">CUADRE CAJA Y/O BANCOS</h1>
+    <div class="grid-container#">
+      <div class="header">
+        <header>
+          <img
+            src="../assets/logo.jpeg"
+            class="logo"
+            alt="Logo de la empresa"
+          />
+          <h1 class="title">CUADRE CAJA Y/O BANCOS</h1>
+        </header>
+      </div>
+      <!-- <div class="saldos1">
+        <ol class="lista">
+          <li>SALDO</li>
+          <li></li>
+          <li></li>
+      </ol>`
+      </div> -->
+    </div>
+    <section>
       <article>
-        <table class="table">
+        <table class="table" id="table">
           <thead>
             <tr>
               <th>N. DOCUMENTO</th>
@@ -42,29 +58,30 @@
     </template>
     <script>
       const d = document,
-        $table = d.querySelector('.table'),
+        $table = d.querySelector(".table"),
         $fragment = d.createDocumentFragment(),
-        $template = d.getElementById('cuadre-template').content;
+        $template = d.getElementById("cuadre-template").content;
 
       /*<-- Obtener todos los registros -->*/
       async function getAll() {
         try {
-          let req = await fetch('../php/get/cuadre-caja.php');
+          let req = await fetch("../php/get/cuadre-caja.php");
           let res = await req.json();
           if (!req.ok) throw { status: res.status, statusText: res.statusText };
           res.forEach((value) => {
-            let {docref, fecdoc, deb, cred, client, nomfue, coment, facfis} = value;
-            $template.querySelector('.doc').textContent = docref;
-            $template.querySelector('.date').textContent = fecdoc;
-            $template.querySelector('.deb').textContent = deb;
-            $template.querySelector('.cred').textContent = cred;
-            $template.querySelector('.client').textContent = client;
-            $template.querySelector('.comment').textContent = coment;
-            $template.querySelector('.facfis').textContent = facfis;
+            let { docref, fecdoc, deb, cred, client, nomfue, coment, facfis } =
+              value;
+            $template.querySelector(".doc").textContent = docref;
+            $template.querySelector(".date").textContent = fecdoc;
+            $template.querySelector(".deb").textContent = deb;
+            $template.querySelector(".cred").textContent = cred;
+            $template.querySelector(".client").textContent = client;
+            $template.querySelector(".comment").textContent = coment;
+            $template.querySelector(".facfis").textContent = facfis;
             let $clone = d.importNode($template, true);
             $fragment.appendChild($clone);
           });
-          $table.querySelector('tbody').appendChild($fragment);
+          $table.querySelector("tbody").appendChild($fragment);
         } catch (err) {
           printError(err, $table);
         }
@@ -72,17 +89,17 @@
 
       /*Muestra el error de cualquier petición*/
       const printError = (err, element) => {
-        let message = err.statusText || 'Ocurrió un error!';
+        let message = err.statusText || "Ocurrió un error!";
         if (element) {
           element.insertAdjacentHTML(
-            'afterend',
+            "afterend",
             `<span>Error: ${err.status}: ${message}</span>`
           );
         } else {
           alert(`Error ${err.status}: ${message}`);
         }
       };
-      d.addEventListener('DOMContentLoaded', getAll());
+      d.addEventListener("DOMContentLoaded", getAll());
     </script>
   </body>
 </html>

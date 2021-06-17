@@ -54,23 +54,31 @@ export async function drawChart(type, canvas) {
 }
 
 export async function getSaldos() {
-  const $ul1 = d.querySelector(".saldos1");
-  const $ul2 = d.querySelector(".saldos2");
+  const $ol = d.querySelector(".saldos1");
+  const $ol2 = d.querySelector(".saldos2");
   try {
     let res = await fetch("../php/get/saldos.php");
     let json = await res.json();
     if (!res.ok) throw { status: res.status, statusText: res.statusText };
-    $ul1.innerHTML += `
+    let {
+      saldoCaja,
+      saldoCartProv,
+      saldoCart,
+      cantidadInv,
+      saldoInv,
+      egresos,
+    } = json;
+    $ol.innerHTML += `
         <ol class="lista">
-            <li><a>SALDO EN CAJA: ${json[0]}</a></li>
-            <li><a>SALDO EN INVENTARIO: ${json[3]}</a></li>
-            <li><a>CANTIDAD EN INVENTARIO: ${json[4]}</a></li>
+            <li><a href="cuadre.html" target="_blank">SALDO EN CAJA: ${saldoCaja}</a></li>
+            <li><a>SALDO EN INVENTARIO: ${saldoInv}</a></li>
+            <li><a>CANTIDAD EN INVENTARIO: ${cantidadInv}</a></li>
         </ol>`;
-    $ul2.innerHTML += `
+    $ol2.innerHTML += `
         <ol class="lista">
-            <li>TOTAL CARTERA TERCEROS: ${json[2]}</li>
-            <li>TOTAL CARTERA PROVEEDORES: ${json[1]}</li>
-            <li>TOTAL EGRESOS DIA: ${json[5]}</li>
+            <li>TOTAL CARTERA TERCEROS: ${saldoCart}</li>
+            <li>TOTAL CARTERA PROVEEDORES: ${saldoCartProv}</li>
+            <li>TOTAL EGRESOS DIA: ${egresos}</li>
         </ol>`;
   } catch (err) {
     console.log(`Error: ${err}`);
@@ -79,13 +87,41 @@ export async function getSaldos() {
   // $link.forEach(element => element.setAttribute('href', '##'));
 }
 
-//  async function requestGET(url) {
-//   try {
-//     let req = await fetch(url);
-//     let res = await req.json();
-//     if (!req.ok) throw { status: req.status, statusText: req.statusText };
-//     return res;
-//   } catch (err) {
-//     return err;
-//   }
-// }
+export async function fillTable(table, template) {
+  const d = document,
+    $table = d.querySelector(table),
+    $fragment = d.createDocumentFragment(),
+    $template = d.getElementById('cuadre-template').content;
+  try {
+    let req = await fetch("../php/get/cuadre-caja.php");
+    let res = await req.json();
+    if (!req.ok) throw { status: res.status, statusText: res.statusText };
+    res.forEach((value) => {
+      let { docref, fecdoc, deb, cred, client, nomfue, coment, facfis } = value;
+      $template.querySelector(".doc").textContent = docref;
+      $template.querySelector(".date").textContent = fecdoc;
+      $template.querySelector(".deb").textContent = deb;
+      $template.querySelector(".cred").textContent = cred;
+      $template.querySelector(".client").textContent = client;
+      $template.querySelector(".comment").textContent = coment;
+      $template.querySelector(".facfis").textContent = facfis;
+      let $clone = d.importNode($template, true);
+      $fragment.appendChild($clone);
+    });
+    $table.querySelector("tbody").appendChild($fragment);
+  } catch (err) {
+    printError(err, $table);
+  }
+}
+
+const printError = (err, element) => {
+  let message = err.statusText || 'Ocurrió un error!';
+  if (element) {
+    element.insertAdjacentHTML(
+      'afterend',
+      `<span>Error: ${err.status}: ${message}</span>`
+    );
+  } else {
+    alert(`Error ${err.status}: ${message}`);
+  }
+};
