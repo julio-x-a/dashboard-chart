@@ -42,15 +42,17 @@ html {
   border-bottom: 1px solid rgba(75, 192, 192, 1);
 }
 
-.grid-container {
+.grid-container,
+.grid-cuentas {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    "header header header header"
-    "saldos1 saldos1 saldos2 saldos2"
-    "chart1 chart1 chart2 chart2";
+    "header header"
+    "saldos1 saldos2"
+    "chart1 chart2"
+    "footer footer";
 }
 
 .header { 
@@ -75,15 +77,15 @@ and (max-width : 970px) {
   .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.5fr 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-      "header  header  header  header"
-      "saldos1 saldos1 saldos1 saldos1"
-      "saldos2 saldos2 saldos2 saldos2"
-      "chart1  chart1  chart1  chart1"
-      "chart2  chart2  chart2  chart2"
-      "footer  footer  footer  foooter";
+      "header  header"
+      "saldos1 saldos1"
+      "saldos2 saldos2"
+      "chart1  chart1"
+      "chart2  chart2"
+      "footer  footer";
   }
 .chart,
 .chart2 {
@@ -189,4 +191,20 @@ and (max-width : 970px) {
 .table {
   margin-left: auto;
   margin-right: auto;
+}
+
+
+/* ----- Cuentas CSS ----  */
+
+.input {
+  padding: 10px;
+  font-family: 'Poppins';
+  display: inline-block;
+  margin: auto;
+} 
+
+.fechas {
+  display: flex;
+  border: 1px solid gray;
+  align-content: center;
 }
